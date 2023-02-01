@@ -21,9 +21,27 @@ let connection;
     connection.connect();
 
     const movies = new Movies(connection);
-    movies.viewAllMovies()
-        .then((data) => {console.log(data)})
-        .catch((err) => console.log(err));
+    
+    app.get('/api/movies', (req,res)=>{
+        movies.getAllMovies()
+        .then(data=>{res.json(data)})
+        .catch(err=>{console.log(err)});
+    });
+
+    app.post('/api/add-movie', (req,res)=>{
+        const { movieName } = req.body;
+        if (movieName){
+            var arr =[];
+            arr.push(movieName);
+            movies.addMovie(arr)
+            .then(data=>{res.status(201).json("success")})
+            .catch(err=>{res.status(400).json("fail")});
+
+        }
+        res.status(400).json("fail");
+        
+    })
+
 
 
 
