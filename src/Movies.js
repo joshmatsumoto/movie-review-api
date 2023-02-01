@@ -4,9 +4,9 @@ class Movies {
     }
     
     // View all departments
-    async viewAll(){
+    async viewAllMovies(){
         return new Promise((resolve, reject) => {
-            this.connection.query(`SELECT * FROM department;`, function(err, results) {
+            this.connection.query(`SELECT * FROM movies;`, function(err, results) {
                 if (err) {
                   return reject(err);
                 }
@@ -15,17 +15,17 @@ class Movies {
         });
     }
 
-    // Add a department
-    async addReview(newDeptName){
-        return new Promise((resolve, reject) => {
-            this.connection.query(`INSERT INTO department (name) VALUES (?);`, newDeptName, function(err, results) {
-                if (err) {
-                    return reject(err);
-                }
-                return resolve(results);
-            });
-        });
-    }
+    // // Add a department
+    // async addReview(newDeptName){
+    //     return new Promise((resolve, reject) => {
+    //         this.connection.query(`INSERT INTO department (name) VALUES (?);`, newDeptName, function(err, results) {
+    //             if (err) {
+    //                 return reject(err);
+    //             }
+    //             return resolve(results);
+    //         });
+    //     });
+    // }
 }
 
 module.exports = Movies;

@@ -1,9 +1,8 @@
 const express = require('express');
 const mysql = require('mysql2');
-const inquirer = require('inquirer');
 const Movies = require('./src/Movies.js');
 
-const PORT = process.env.PORT || 3001;
+const PORT = 3001;
 const app = express();
 
 app.use(express.urlencoded({ extended: false }));
@@ -11,29 +10,29 @@ app.use(express.json());
 
 let connection;
 
-async function startProgram() {
+// async function startProgram() {
     
-    connection = await mysql.createConnection({
+    connection = mysql.createConnection({
         host: 'localhost',
         user: 'root',
         password: 'password',
-        database: 'employees_db'
+        database: 'movies_db'
     });
-    await connection.connect();
+    connection.connect();
 
     const movies = new Movies(connection);
-    movies.viewAll()
+    movies.viewAllMovies()
         .then((data) => {console.log(data)})
         .catch((err) => console.log(err));
 
-}
+
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
 
-function init(){
-    startProgram();
-}
+// function init(){
+//     startProgram();
+// }
 
-init();
+// init();
